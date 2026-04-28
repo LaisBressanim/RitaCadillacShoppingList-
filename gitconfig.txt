@@ -1,0 +1,13 @@
+Configuração do GIT
+git config --global user.name LaisBressanim
+git config --global user.email laismartim2009@gmail.com
+
+--Criando o projeto, especificando nome e template vazio
+npx create-expo-app@latest RitaCadillacShoppingList --template blank
+
+ cd RitaCadillacShoppingList
+
+ --Executar o projeto 
+ npx expo start --tunnel
+
+ 

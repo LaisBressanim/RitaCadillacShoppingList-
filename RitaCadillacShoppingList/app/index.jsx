@@ -62,7 +62,17 @@ const styles = StyleSheet.create({
     button:{
      position:'absolute',
      backgroundColor:'#000',
+     buttom:'15%',
+     alignSelf:'center',
+     borderRadius:50,
+     paddingVertical:15,
+     width:'60%',
+     textAlignt:'center',
+    },
 
-
+    buttonText:{
+    fontSize:22,
+    color:'#fff',
+    fontWeight:'bold'
     },
 });

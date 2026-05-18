@@ -35,4 +35,39 @@ export default function Home() {
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  header: {
+    padding: 25,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#00000c0',
+    borderBottomStartRadius: 30,
+    borderBottomEndRadius: 30,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight:'bold',
+    color: '#ffffff' 
+    },
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      width: ''
+
+    }
+    flexDirection: 'row',
+    elevation: 40,
+    flex: 1,
+    height: 50,
+    marginVertical: 20,
+    borderRadius: 30,
+    justifyContent: 'center',
+  },
+  inputContainer: {
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    backgroundColor
+  }
+})

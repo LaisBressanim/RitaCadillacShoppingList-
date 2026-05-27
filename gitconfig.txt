@@ -8,6 +8,6 @@ npx create-expo-app@latest RitaCadillacShoppingList --template blank
  cd RitaCadillacShoppingList
 
  --Executar o projeto 
- npx expo start --tunnel
+ npx expo start --tunnel  iuuuu
 
  

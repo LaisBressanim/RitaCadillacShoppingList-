@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { 
   Alert,
+  FlatList,
   ImageBackground,
   StyleSheet,
   Text,
@@ -10,28 +11,72 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import ItemList from '../components/ItemList';
 
 export default function Home() {
-  const [textInput, setTextIput] = useState('');
+  const [textInput, setTextInput] = useState('');
   const [items, setItems] = useState([]);
 
   function addProduto() {
-    //console.log(textInput);
-    if (textInput == '') {
-      Alert.alert(
-        'ocorreu um problema: (',
-        'Por favor, informe o nome do produto'
-      );
-      return;
-    }
-    const newItem = {
-      id: Date.now().toString(),
-      name: textInput,
-      bought: false
-    };
-    setItems([...items, newItem]);
-    setTextIput('');
+    
   }
+
+   function markProduto(itemid){
+    const newItems=items.map((item)=> {
+      if(item.id == itemid){
+        return{...item,bought: true}
+      }
+       return item;
+
+    });
+    setItems(newItems);
+
+   }
+   function unmarkProduto(itemid){
+    const newItems=items.map((item)=> {
+      if(item.id == itemid){
+        return{...item,bought: false}
+      }
+       return item;
+
+    });
+    setItems(newItems);
+
+   }
+   function removeProduto(itemid){
+    Alert.alert('Excluir Produto?',
+      'Confirme a exclusão deste Produto?',
+      [
+        {
+          text:'Sim?',onPress:() => {
+            const newItems = items.filter(item => item.id != itemid);
+            setItems(newItems);
+          }
+        },
+        {
+          text:'Cancelar', style:'cancel'
+        }
+      ]
+
+    );
+
+   }
+   function removeAll(){
+    Alert.alert('Limpar Lista?',
+      'Confirme a exclusão de todas os Produto?',
+      [
+        {
+          text:'Sim',onPress:() => {setItems([]);}
+           
+        },
+        {
+          text:'Cancelar', style:'cancel'
+        }
+      ]
+
+    );
+
+   }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
@@ -42,17 +87,24 @@ export default function Home() {
       >
         <View style={styles.header}>
           <Text style={styles.title}>Lista de Compras</Text>
-          <Ionicons name='trash' size={32} color="#fff"></Ionicons>
+          <Ionicons name='trash' size={32} color="#fff" onPress={removeAll}/>
         </View>
 
         {/* Lista de compras */}
-        <FlatList
-          contentContainerStyle={{ padding: 20, paddingBottom: 100, color:'#fff'}}
+        <FlatList 
+          contentContainerStyle={{ 
+            padding: 20, paddingBottom: 100, color:'#fff'}}
           data={items}
-          keyExtractor={(item) => item.id.toString}
-          renderItem={({ item )} => <Text>{item.name}</Text>}
-            
-        
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => 
+            <ItemList
+              item={item} 
+              markItem={markProduto}
+              unmarkItem={unmarkProduto}
+              removeItem={removeProduto}
+              
+              />
+          }
         />
 
         <View style={styles.footer}>
@@ -62,8 +114,8 @@ export default function Home() {
               fontSize={18}
               placeholder='Digite o nome do produto...'
               placeholderTextColor="#aeaeae"
-              value= {textInput}
-              onChangeText={(text) => setTextIput(text)}
+              value={textInput}
+              onChangeText={(text) => setTextInput(text)}
             />
           </View>
           <TouchableOpacity style={styles.iconContainer} onPress={addProduto}>
